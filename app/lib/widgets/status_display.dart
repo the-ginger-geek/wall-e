@@ -137,9 +137,9 @@ class StatusDisplay extends StatelessWidget {
                 ),
                 _buildStatusItem(
                   label: 'Server',
-                  value: robotStatus!.serverRunning ? 'Running' : 'Stopped',
-                  icon: robotStatus!.serverRunning ? Icons.cloud : Icons.cloud_off,
-                  color: robotStatus!.serverRunning ? Colors.blue : Colors.grey,
+                  value: robotStatus!.arduinoConnected ? 'Running' : 'Stopped',
+                  icon: robotStatus!.arduinoConnected ? Icons.cloud : Icons.cloud_off,
+                  color: robotStatus!.arduinoConnected ? Colors.blue : Colors.grey,
                 ),
               ],
             ),

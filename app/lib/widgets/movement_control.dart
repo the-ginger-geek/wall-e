@@ -87,7 +87,7 @@ class _MovementControlState extends State<MovementControl> {
                 _buildDirectionalButton(
                   icon: Icons.keyboard_arrow_up,
                   label: 'Forward',
-                  onPressed: () => _sendMovement(0, 50),
+                  onPressed: () => _sendMovement(-50, 0),
                   onReleased: _stopMovement,
                 ),
                 const SizedBox(height: 20),
@@ -98,7 +98,7 @@ class _MovementControlState extends State<MovementControl> {
                     _buildDirectionalButton(
                       icon: Icons.keyboard_arrow_left,
                       label: 'Left',
-                      onPressed: () => _sendMovement(-50, 0),
+                      onPressed: () => _sendMovement(-30, 30),
                       onReleased: _stopMovement,
                     ),
                     
@@ -118,7 +118,7 @@ class _MovementControlState extends State<MovementControl> {
                     _buildDirectionalButton(
                       icon: Icons.keyboard_arrow_right,
                       label: 'Right',
-                      onPressed: () => _sendMovement(50, 0),
+                      onPressed: () => _sendMovement(30, 30),
                       onReleased: _stopMovement,
                     ),
                   ],
@@ -128,7 +128,7 @@ class _MovementControlState extends State<MovementControl> {
                 _buildDirectionalButton(
                   icon: Icons.keyboard_arrow_down,
                   label: 'Backward',
-                  onPressed: () => _sendMovement(0, -50),
+                  onPressed: () => _sendMovement(50, 0),
                   onReleased: _stopMovement,
                 ),
               ],

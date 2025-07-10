@@ -14,7 +14,7 @@ class RobotAPIException implements Exception {
 
 class RobotAPI {
   static const String robotHost = '192.168.0.155';
-  static const int robotPort = 5000;
+  static const int robotPort = 5001;
   
   static Socket? _socket;
   static final StreamController<String> _responseController = StreamController<String>.broadcast();
@@ -181,25 +181,24 @@ class RobotAPI {
 }
 
 class RobotStatus {
+  final String status;
   final bool arduinoConnected;
-  final String batteryLevel;
-  final bool serverRunning;
+  final String batteryLevel = 'Unknown';
   
   RobotStatus({
+    required this.status,
     required this.arduinoConnected,
-    required this.batteryLevel,
-    required this.serverRunning,
   });
   
   factory RobotStatus.fromJson(Map<String, dynamic> json) {
-    final robotStatus = json['robot_status'] ?? {};
+    final robotStatus = json['status'] ?? {};
+
     return RobotStatus(
-      arduinoConnected: robotStatus['arduino_connected'] ?? false,
-      batteryLevel: robotStatus['battery_level'] ?? 'Unknown',
-      serverRunning: robotStatus['server_running'] ?? false,
+      status: robotStatus,
+      arduinoConnected: robotStatus == 'OK',
     );
   }
   
   // Legacy compatibility for camera_active
-  bool get cameraActive => serverRunning;
+  bool get cameraActive => arduinoConnected;
 }

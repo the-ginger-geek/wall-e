@@ -37,7 +37,7 @@ class _RobotControlScreenState extends State<RobotControlScreen> {
       final status = RobotStatus.fromJson(response);
       setState(() {
         _robotStatus = status;
-        _isConnected = RobotAPI.isConnected && status.arduinoConnected;
+        _isConnected = status.arduinoConnected;
         _statusMessage = _isConnected ? 'Connected' : 'Arduino not connected';
       });
     } catch (e) {
