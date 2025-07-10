@@ -740,6 +740,255 @@ def arduinoStatus():
     return jsonify({'status': 'Error', 'msg': 'Unable to read POST data'})
 
 
+# =============================================================
+# NEW API ENDPOINTS FOR EXTERNAL CONTROL
+# =============================================================
+
+@app.route('/api/move', methods=['POST'])
+def api_move():
+    """
+    API endpoint to control robot movement
+    Accepts JSON: {"x": -100 to 100, "y": -100 to 100}
+    :return: JSON response with success or error status
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'status': 'Error', 'msg': 'No JSON data provided'}), 400
+        
+        x = data.get('x')
+        y = data.get('y')
+        
+        if x is None or y is None:
+            return jsonify({'status': 'Error', 'msg': 'Both x and y values required'}), 400
+        
+        if not (-100 <= x <= 100) or not (-100 <= y <= 100):
+            return jsonify({'status': 'Error', 'msg': 'Values must be between -100 and 100'}), 400
+        
+        global arduino
+        if arduino.is_connected():
+            arduino.send_command(f"X{int(x)}")
+            arduino.send_command(f"Y{int(y)}")
+            return jsonify({'status': 'OK', 'x': int(x), 'y': int(y)})
+        else:
+            return jsonify({'status': 'Error', 'msg': 'Arduino not connected'}), 503
+    
+    except Exception as e:
+        return jsonify({'status': 'Error', 'msg': str(e)}), 500
+
+
+@app.route('/api/servo', methods=['POST'])
+def api_servo():
+    """
+    API endpoint to control individual servos
+    Accepts JSON: {"servo": "servo_name", "value": 0-100}
+    Valid servos: head_rotation, neck_top, neck_bottom, arm_left, arm_right, eye_left, eye_right
+    :return: JSON response with success or error status
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'status': 'Error', 'msg': 'No JSON data provided'}), 400
+        
+        servo = data.get('servo')
+        value = data.get('value')
+        
+        if servo is None or value is None:
+            return jsonify({'status': 'Error', 'msg': 'Both servo and value required'}), 400
+        
+        if not (0 <= value <= 100):
+            return jsonify({'status': 'Error', 'msg': 'Value must be between 0 and 100'}), 400
+        
+        # Map servo names to command characters
+        servo_map = {
+            'head_rotation': 'G',
+            'neck_top': 'T', 
+            'neck_bottom': 'B',
+            'arm_left': 'L',
+            'arm_right': 'R',
+            'eye_left': 'E',
+            'eye_right': 'U'
+        }
+        
+        if servo not in servo_map:
+            valid_servos = ', '.join(servo_map.keys())
+            return jsonify({'status': 'Error', 'msg': f'Invalid servo. Valid servos: {valid_servos}'}), 400
+        
+        global arduino
+        if arduino.is_connected():
+            arduino.send_command(f"{servo_map[servo]}{int(value)}")
+            return jsonify({'status': 'OK', 'servo': servo, 'value': int(value)})
+        else:
+            return jsonify({'status': 'Error', 'msg': 'Arduino not connected'}), 503
+    
+    except Exception as e:
+        return jsonify({'status': 'Error', 'msg': str(e)}), 500
+
+
+@app.route('/api/servo/multiple', methods=['POST'])
+def api_servo_multiple():
+    """
+    API endpoint to control multiple servos at once
+    Accepts JSON: {"servos": {"servo_name": value, "servo_name": value, ...}}
+    :return: JSON response with success or error status
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'status': 'Error', 'msg': 'No JSON data provided'}), 400
+        
+        servos = data.get('servos')
+        if not servos or not isinstance(servos, dict):
+            return jsonify({'status': 'Error', 'msg': 'servos must be a dictionary'}), 400
+        
+        servo_map = {
+            'head_rotation': 'G',
+            'neck_top': 'T', 
+            'neck_bottom': 'B',
+            'arm_left': 'L',
+            'arm_right': 'R',
+            'eye_left': 'E',
+            'eye_right': 'U'
+        }
+        
+        # Validate all servos first
+        for servo, value in servos.items():
+            if servo not in servo_map:
+                valid_servos = ', '.join(servo_map.keys())
+                return jsonify({'status': 'Error', 'msg': f'Invalid servo "{servo}". Valid servos: {valid_servos}'}), 400
+            
+            if not (0 <= value <= 100):
+                return jsonify({'status': 'Error', 'msg': f'Value for "{servo}" must be between 0 and 100'}), 400
+        
+        global arduino
+        if arduino.is_connected():
+            for servo, value in servos.items():
+                arduino.send_command(f"{servo_map[servo]}{int(value)}")
+            return jsonify({'status': 'OK', 'servos': {k: int(v) for k, v in servos.items()}})
+        else:
+            return jsonify({'status': 'Error', 'msg': 'Arduino not connected'}), 503
+    
+    except Exception as e:
+        return jsonify({'status': 'Error', 'msg': str(e)}), 500
+
+
+@app.route('/api/animation', methods=['POST'])
+def api_animation():
+    """
+    API endpoint to play animations
+    Accepts JSON: {"animation": animation_number}
+    :return: JSON response with success or error status
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'status': 'Error', 'msg': 'No JSON data provided'}), 400
+        
+        animation = data.get('animation')
+        if animation is None:
+            return jsonify({'status': 'Error', 'msg': 'animation number required'}), 400
+        
+        if not isinstance(animation, int) or animation < 0:
+            return jsonify({'status': 'Error', 'msg': 'animation must be a non-negative integer'}), 400
+        
+        global arduino
+        if arduino.is_connected():
+            arduino.send_command(f"A{animation}")
+            return jsonify({'status': 'OK', 'animation': animation})
+        else:
+            return jsonify({'status': 'Error', 'msg': 'Arduino not connected'}), 503
+    
+    except Exception as e:
+        return jsonify({'status': 'Error', 'msg': str(e)}), 500
+
+
+@app.route('/api/settings', methods=['POST'])
+def api_settings():
+    """
+    API endpoint to update robot settings
+    Accepts JSON: {"setting": "setting_name", "value": value}
+    Valid settings: steering_offset (-100 to 100), motor_deadzone (0 to 250), auto_mode (0 or 1)
+    :return: JSON response with success or error status
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'status': 'Error', 'msg': 'No JSON data provided'}), 400
+        
+        setting = data.get('setting')
+        value = data.get('value')
+        
+        if setting is None or value is None:
+            return jsonify({'status': 'Error', 'msg': 'Both setting and value required'}), 400
+        
+        global arduino
+        if not arduino.is_connected():
+            return jsonify({'status': 'Error', 'msg': 'Arduino not connected'}), 503
+        
+        if setting == 'steering_offset':
+            if not (-100 <= value <= 100):
+                return jsonify({'status': 'Error', 'msg': 'steering_offset must be between -100 and 100'}), 400
+            arduino.send_command(f"S{int(value)}")
+            
+        elif setting == 'motor_deadzone':
+            if not (0 <= value <= 250):
+                return jsonify({'status': 'Error', 'msg': 'motor_deadzone must be between 0 and 250'}), 400
+            arduino.send_command(f"O{int(value)}")
+            
+        elif setting == 'auto_mode':
+            if value not in [0, 1]:
+                return jsonify({'status': 'Error', 'msg': 'auto_mode must be 0 or 1'}), 400
+            arduino.send_command(f"M{int(value)}")
+            
+        else:
+            return jsonify({'status': 'Error', 'msg': 'Invalid setting. Valid settings: steering_offset, motor_deadzone, auto_mode'}), 400
+        
+        return jsonify({'status': 'OK', 'setting': setting, 'value': int(value)})
+    
+    except Exception as e:
+        return jsonify({'status': 'Error', 'msg': str(e)}), 500
+
+
+@app.route('/api/status', methods=['GET'])
+def api_status():
+    """
+    API endpoint to get robot status
+    :return: JSON response with robot status information
+    """
+    try:
+        global arduino
+        
+        status = {
+            'arduino_connected': arduino.is_connected(),
+            'battery_level': arduino.get_battery_level(),
+            'camera_active': camera.is_stream_active()
+        }
+        
+        return jsonify({'status': 'OK', 'robot_status': status})
+    
+    except Exception as e:
+        return jsonify({'status': 'Error', 'msg': str(e)}), 500
+
+
+@app.route('/api/stop', methods=['POST'])
+def api_stop():
+    """
+    API endpoint to stop all robot movement
+    :return: JSON response with success or error status
+    """
+    try:
+        global arduino
+        if arduino.is_connected():
+            arduino.send_command("X0")
+            arduino.send_command("Y0")
+            return jsonify({'status': 'OK', 'msg': 'Robot stopped'})
+        else:
+            return jsonify({'status': 'Error', 'msg': 'Arduino not connected'}), 503
+    
+    except Exception as e:
+        return jsonify({'status': 'Error', 'msg': str(e)}), 500
+
+
 
 ###############################################################
 #
