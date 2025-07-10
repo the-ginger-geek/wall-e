@@ -1,0 +1,17 @@
+[Unit]
+Description=Wall-E TCP Control Server
+After=multi-user.target network.target
+Before=walle.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/admin/walle-replica
+ExecStart=/usr/bin/python3 tcp_server.py
+KillSignal=SIGINT
+Restart=on-failure
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+User=admin
+Group=admin
+
+[Install]
+WantedBy=multi-user.target

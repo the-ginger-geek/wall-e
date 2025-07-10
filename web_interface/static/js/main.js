@@ -935,7 +935,9 @@ $(window).resize(function () {
 	if (w > 767) middleX += w / 4;
 	var middleY = 40 + 30 + cw / 2;
 	
-	jsJoystick.updateDimensions(middleX, middleY, (cw/2), Math.round(cw/2) - pointer/2);
+	if (jsJoystick) {
+		jsJoystick.updateDimensions(middleX, middleY, (cw/2), Math.round(cw/2) - pointer/2);
+	}
 
 });
 
