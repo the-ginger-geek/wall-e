@@ -23,18 +23,14 @@
 
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
+#include <AFMotor.h>
 #include "Queue.hpp"
-#include "MotorController.hpp"
 
 
 /// Define pin-mapping
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
-#define DIRECTION_L_PIN 12           // Motor direction pins
-#define DIRECTION_R_PIN 13
-#define PWM_SPEED_L_PIN  3           // Motor PWM pins
-#define PWM_SPEED_R_PIN 11
-#define BRAKE_L_PIN  9               // Motor brake pins
-#define BRAKE_R_PIN  8
+// HW-130 Motor Shield uses M1 and M2 terminals
+// Pins 4, 7, 8, 12 are used by the shield's shift register
 #define SERVO_ENABLE_PIN 10          // Servo shield output enable pin
 
 
@@ -97,9 +93,10 @@
 // Servo shield controller class - assumes default address 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
-// Set up motor controller classes
-MotorController motorL(DIRECTION_L_PIN, PWM_SPEED_L_PIN, BRAKE_L_PIN, false);
-MotorController motorR(DIRECTION_R_PIN, PWM_SPEED_R_PIN, BRAKE_R_PIN, false);
+// Set up motor controller classes for HW-130 shield using AFMotor
+// M1 and M2 are the motor terminals on the shield
+AF_DCMotor motorL(1);  // Motor connected to M1 terminal
+AF_DCMotor motorR(2);  // Motor connected to M2 terminal
 
 // Queue for animations - buffer is defined outside of the queue class
 // so that the compiler knows how much dynamic memory will be used
@@ -141,13 +138,13 @@ uint8_t serialLength = 0;
 
 // ****** SERVO MOTOR CALIBRATION *********************
 // Servo Positions:  Low,High
-int preset[][2] =  {{410,120},  // head rotation
-                    {532,178},  // neck top
-                    {120,310},  // neck bottom
-                    {465,271},  // eye right
-                    {278,479},  // eye left
-                    {340,135},  // arm left
-                    {150,360}}; // arm right
+int preset[][2] =  {{128,572},  // head rotation
+                    {285,548},  // neck top
+                    {150,330},  // neck bottom
+                    {405,310},  // eye right
+                    {220,290},  // eye left
+                    {600,485},  // arm left
+                    {128,240}}; // arm right
 // *****************************************************
 
 
@@ -182,9 +179,15 @@ void setup() {
 		pwm.setPin(i, 0);
 	}
 
+	// Initialize motors for HW-130 shield using AFMotor
+	motorL.setSpeed(0);
+	motorR.setSpeed(0);
+	motorL.run(RELEASE);
+	motorR.run(RELEASE);
+
 	// Initialize serial communication for debugging
 	Serial.begin(115200);
-	Serial.println(F("--- Wall-E Control Sketch ---"));
+	Serial.println(F("--- Wall-E Control Sketch (HW-130 Shield) ---"));
 
 	randomSeed(analogRead(0));
 
@@ -620,9 +623,28 @@ void manageMotors(float dt) {
 		if (curvel[i] < -maxvel[i]) curvel[i] = -maxvel[i];
 	}
 
-	// Update motor speeds
-	motorL.setSpeed(curvel[NUMBER_OF_SERVOS]);
-	motorR.setSpeed(curvel[NUMBER_OF_SERVOS+1]);
+	// Update motor speeds using AFMotor library
+	int leftSpeed = abs(curvel[NUMBER_OF_SERVOS]);
+	int rightSpeed = abs(curvel[NUMBER_OF_SERVOS+1]);
+	
+	// Set motor directions and speeds
+	if (curvel[NUMBER_OF_SERVOS] > 0) {
+		motorL.run(FORWARD);
+	} else if (curvel[NUMBER_OF_SERVOS] < 0) {
+		motorL.run(BACKWARD);
+	} else {
+		motorL.run(RELEASE);
+	}
+	motorL.setSpeed(leftSpeed);
+	
+	if (curvel[NUMBER_OF_SERVOS+1] > 0) {
+		motorR.run(BACKWARD);
+	} else if (curvel[NUMBER_OF_SERVOS+1] < 0) {
+		motorR.run(FORWARD);
+	} else {
+		motorR.run(RELEASE);
+	}
+	motorR.setSpeed(rightSpeed);
 }
 
 
