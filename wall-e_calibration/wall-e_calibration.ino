@@ -45,11 +45,13 @@
 
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
+#include <AFMotor.h>
 
 
 // Define the pin-mapping
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 #define SR_OE 10           // Servo shield output enable pin
+
 
 
 // Define other constants
@@ -61,6 +63,10 @@
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // Servo shield controller class
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+
+// Motor shield controller class for HW-130 shield using AFMotor
+AF_DCMotor motorL(1);  // Motor connected to M1 terminal
+AF_DCMotor motorR(2);  // Motor connected to M2 terminal
 
 
 // Servo Positions:  Low,High
@@ -96,13 +102,19 @@ int position = preset[0][0] - 1;
 // ------------------------------------------------------------------
 void setup() {
 
-	// Output Enable (EO) pin for the servo motors
+	// Output Enable (EO) pin for the servo motors - keep LOW to enable outputs
 	pinMode(SR_OE, OUTPUT);
-	digitalWrite(SR_OE, HIGH);
+	digitalWrite(SR_OE, LOW);
 
 	// Communicate with servo shield (Analog servos run at ~60Hz)
 	pwm.begin();
 	pwm.setPWMFreq(60);
+
+	// Initialize motor shield for HW-130 using AFMotor
+	motorL.setSpeed(0);
+	motorR.setSpeed(0);
+	motorL.run(RELEASE);
+	motorR.run(RELEASE);
 
 	// Turn off servo outputs
 	for (int i = 0; i < SERVOS; i++) pwm.setPin(i, 0);
@@ -112,8 +124,10 @@ void setup() {
 	while(!Serial);
 
 	Serial.println(F("////////// Starting Wall-E Calibration Program //////////"));
+	Serial.println(F("Motor Test Commands:"));
+	Serial.println(F("'q'=test left motor (M1), 'w'=test right motor (M2), 'e'=stop motors\n"));
 
-	digitalWrite(SR_OE, LOW);
+	// SR_OE already set to LOW above
 	softStart();
 	moveToNextPosition();
 }
@@ -215,26 +229,60 @@ void outputResults() {
 void readSerial() {
 	// Read incoming byte
 	char inchar = Serial.read();
+	
+	// Debug: Show what command was received
+	Serial.print(F("Received command: ")); Serial.println(inchar);
 
 	// Move on to next position or servo
 	if (inchar == 'n') {
+		Serial.println(F("Moving to next position..."));
 		moveToNextPosition();
 
 	// Decrease servo position by 10 degrees
 	} else if (inchar == 'a') {
+		Serial.print(F("Moving servo from ")); Serial.print(position); Serial.print(F(" to ")); Serial.println(position - 10);
 		changeServoPosition(position - 10);
 
 	// Increase servo position by 10 degrees
 	} else if (inchar == 'd') {
+		Serial.print(F("Moving servo from ")); Serial.print(position); Serial.print(F(" to ")); Serial.println(position + 10);
 		changeServoPosition(position + 10);
 
 	// Decrease servo position by 1 degree
 	} else if (inchar == 'z') {
+		Serial.print(F("Moving servo from ")); Serial.print(position); Serial.print(F(" to ")); Serial.println(position - 1);
 		changeServoPosition(position - 1);
 
 	// Increase servo position by 1 degree
 	} else if (inchar == 'c') {
+		Serial.print(F("Moving servo from ")); Serial.print(position); Serial.print(F(" to ")); Serial.println(position + 1);
 		changeServoPosition(position + 1);
+	
+	// Motor Testing Commands using AFMotor
+	} else if (inchar == 'q') {
+		Serial.println(F("Testing LEFT motor (M1 terminal) - should spin forward"));
+		motorL.setSpeed(255);  // Full speed
+		motorL.run(FORWARD);
+		delay(2000);
+		motorL.run(RELEASE);
+		Serial.println(F("Left motor test complete"));
+	
+	} else if (inchar == 'w') {
+		Serial.println(F("Testing RIGHT motor (M2 terminal) - should spin forward"));
+		motorR.setSpeed(255);  // Full speed
+		motorR.run(FORWARD);
+		delay(2000);
+		motorR.run(RELEASE);
+		Serial.println(F("Right motor test complete"));
+	
+	} else if (inchar == 'e') {
+		Serial.println(F("Stopping both motors"));
+		motorL.run(RELEASE);
+		motorR.run(RELEASE);
+	
+	
+	} else {
+		Serial.print(F("Unknown command: ")); Serial.println(inchar);
 	}
 }
 
@@ -249,3 +297,4 @@ void loop() {
 		readSerial();
 	}
 }
+
