@@ -10,6 +10,15 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  
+  # State Management & MVVM
+  provider: ^6.1.2
+  
+  # Service Locator
+  get_it: ^7.6.4
+  
+  # Utilities
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'screens/robot_control_screen.dart';
+import 'core/service_locator.dart';
+import 'screens/robot_control_screen_mvvm.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize service locator and dependencies
+  await setupServiceLocator();
+  
   runApp(const WallEControllerApp());
 }
 
