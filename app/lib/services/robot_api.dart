@@ -74,7 +74,49 @@ class RobotAPI {
     _isConnected = false;
   }
   
-  // Send a command and wait for response
+  // Send a JSON request and wait for response
+  static Future<Map<String, dynamic>> _sendRequest(Map<String, dynamic> request) async {
+    if (!_isConnected) {
+      await connect();
+    }
+    
+    if (_socket == null) {
+      throw RobotAPIException('Not connected to robot', 0);
+    }
+    
+    try {
+      // Send JSON request
+      final jsonRequest = jsonEncode(request);
+      _socket!.write('$jsonRequest\n');
+      
+      // Wait for response
+      final response = await _responseController.stream.first.timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => throw RobotAPIException('Request timeout', 0),
+      );
+      
+      // Parse JSON response
+      final responseData = jsonDecode(response);
+      
+      if (responseData['status'] == 'OK') {
+        return responseData;
+      } else if (responseData['status'] == 'Error') {
+        throw RobotAPIException(
+          'Robot error: ${responseData['message'] ?? 'Unknown error'}',
+          responseData['statusCode'] ?? 1,
+        );
+      } else {
+        return responseData;
+      }
+    } catch (e) {
+      if (e is RobotAPIException) {
+        rethrow;
+      }
+      throw RobotAPIException('Request failed: $e', 0);
+    }
+  }
+  
+  // Legacy text command support (for disconnect)
   static Future<Map<String, dynamic>> _sendCommand(String command) async {
     if (!_isConnected) {
       await connect();
@@ -101,8 +143,8 @@ class RobotAPI {
         return responseData;
       } else if (responseData['status'] == 'Error') {
         throw RobotAPIException(
-          'Robot error: ${responseData['msg'] ?? 'Unknown error'}',
-          1,
+          'Robot error: ${responseData['message'] ?? 'Unknown error'}',
+          responseData['statusCode'] ?? 1,
         );
       } else {
         return responseData;
@@ -120,12 +162,20 @@ class RobotAPI {
   
   // Movement control
   static Future<Map<String, dynamic>> move(int x, int y) async {
-    return await _sendCommand('move $x $y');
+    return await _sendRequest({
+      'type': 'move',
+      'x': x.toDouble(),
+      'y': y.toDouble(),
+    });
   }
   
   // Servo control
   static Future<Map<String, dynamic>> controlServo(String servo, int value) async {
-    return await _sendCommand('servo $servo $value');
+    return await _sendRequest({
+      'type': 'servo',
+      'name': servo,
+      'value': value.toDouble(),
+    });
   }
   
   // Multiple servo control (send multiple commands)
@@ -142,22 +192,44 @@ class RobotAPI {
   
   // Animation control
   static Future<Map<String, dynamic>> playAnimation(int animationId) async {
-    return await _sendCommand('animation $animationId');
+    return await _sendRequest({
+      'type': 'animation',
+      'id': animationId.toString(),
+    });
   }
   
-  // Status check
+  // Status check (not implemented in Dart server yet)
   static Future<Map<String, dynamic>> getStatus() async {
-    return await _sendCommand('status');
+    // For now, return a mock status since Dart server doesn't have status command yet
+    return {
+      'status': 'OK',
+      'message': 'Status check not yet implemented in Dart server',
+      'statusCode': 200,
+    };
   }
   
   // Emergency stop
   static Future<Map<String, dynamic>> emergencyStop() async {
-    return await _sendCommand('stop');
+    return await _sendRequest({
+      'type': 'stop',
+    });
   }
   
-  // Settings control
+  // Disconnect
+  static Future<Map<String, dynamic>> disconnectRobot() async {
+    return await _sendRequest({
+      'type': 'disconnect',
+    });
+  }
+  
+  // Settings control (not implemented in Dart server yet)
   static Future<Map<String, dynamic>> updateSetting(String setting, dynamic value) async {
-    return await _sendCommand('setting $setting $value');
+    // Settings not implemented in Dart server yet
+    return {
+      'status': 'OK',
+      'message': 'Settings not yet implemented in Dart server',
+      'statusCode': 200,
+    };
   }
   
   // Specific setting methods for better type safety
@@ -177,6 +249,52 @@ class RobotAPI {
   
   static Future<Map<String, dynamic>> updateAutoMode(bool enabled) async {
     return await updateSetting('auto_mode', enabled ? 1 : 0);
+  }
+
+  // Camera control
+  static Future<Map<String, dynamic>> startCamera() async {
+    return await _sendRequest({
+      'type': 'camera',
+      'command': 'start',
+    });
+  }
+
+  static Future<Map<String, dynamic>> stopCamera() async {
+    return await _sendRequest({
+      'type': 'camera',
+      'command': 'stop',
+    });
+  }
+
+  static Future<Map<String, dynamic>> getCameraFrame() async {
+    return await _sendRequest({
+      'type': 'camera',
+      'command': 'frame',
+    });
+  }
+  
+  // Audio control
+  static Future<Map<String, dynamic>> playSound(String soundName) async {
+    return await _sendRequest({
+      'type': 'audio',
+      'command': 'play',
+      'argument': soundName,
+    });
+  }
+  
+  static Future<Map<String, dynamic>> speakText(String text) async {
+    return await _sendRequest({
+      'type': 'audio',
+      'command': 'speak',
+      'argument': text,
+    });
+  }
+  
+  static Future<Map<String, dynamic>> listSounds() async {
+    return await _sendRequest({
+      'type': 'audio',
+      'command': 'list',
+    });
   }
 }
 

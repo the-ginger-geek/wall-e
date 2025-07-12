@@ -5,6 +5,8 @@ import '../widgets/servo_control.dart';
 import '../widgets/animation_control.dart';
 import '../widgets/settings_control.dart';
 import '../widgets/status_display.dart';
+import '../widgets/camera_control.dart';
+import '../widgets/audio_control.dart';
 
 class RobotControlScreen extends StatefulWidget {
   const RobotControlScreen({super.key});
@@ -98,12 +100,15 @@ class _RobotControlScreenState extends State<RobotControlScreen> {
           
           Expanded(
             child: DefaultTabController(
-              length: 4,
+              length: 6,
               child: Column(
                 children: [
                   const TabBar(
+                    isScrollable: true,
                     tabs: [
                       Tab(text: 'Movement'),
+                      Tab(text: 'Camera'),
+                      Tab(text: 'Audio'),
                       Tab(text: 'Servos'),
                       Tab(text: 'Animations'),
                       Tab(text: 'Settings'),
@@ -113,6 +118,8 @@ class _RobotControlScreenState extends State<RobotControlScreen> {
                     child: TabBarView(
                       children: [
                         MovementControl(isConnected: _isConnected),
+                        const CameraControl(),
+                        AudioControl(isConnected: _isConnected),
                         ServoControl(isConnected: _isConnected),
                         AnimationControl(isConnected: _isConnected),
                         SettingsControl(isConnected: _isConnected),
