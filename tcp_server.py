@@ -17,11 +17,17 @@ import json
 import logging
 import sys
 import os
+import base64
+import subprocess
 from queue import Queue
 from threading import Event, Thread
 from serial import Serial
 import serial.tools.list_ports
 import time
+from picamera2 import Picamera2
+from picamera2.encoders import MJPEGEncoder
+from picamera2.outputs import FileOutput
+import io
 
 # Import config
 if os.path.isfile("web_interface/local_config.py"):
@@ -204,6 +210,125 @@ class ArduinoDevice:
 
 ###############################################################
 #
+# Camera Streaming Class
+#
+###############################################################
+
+class CameraStreamer:
+    """Camera streaming for TCP server"""
+    
+    def __init__(self):
+        self.picam2 = None
+        self.streaming = False
+        self.frame_buffer = None
+        self.frame_lock = threading.Lock()
+        
+    def start_camera(self):
+        """Start camera streaming"""
+        try:
+            if self.picam2 is None:
+                self.picam2 = Picamera2()
+                config = self.picam2.create_video_configuration(main={"size": (640, 480)})
+                self.picam2.configure(config)
+                self.picam2.start()
+                self.streaming = True
+                return True
+        except Exception as ex:
+            logger.error(f'Camera start error: {repr(ex)}')
+            return False
+        return self.streaming
+        
+    def stop_camera(self):
+        """Stop camera streaming"""
+        try:
+            if self.picam2 is not None:
+                self.picam2.stop()
+                self.picam2.close()
+                self.picam2 = None
+            self.streaming = False
+            return True
+        except Exception as ex:
+            logger.error(f'Camera stop error: {repr(ex)}')
+            return False
+            
+    def get_frame(self):
+        """Get current camera frame as base64 encoded JPEG"""
+        if not self.streaming or self.picam2 is None:
+            return None
+            
+        try:
+            # Capture frame
+            frame = self.picam2.capture_array()
+            
+            # Convert to JPEG
+            import cv2
+            _, jpeg = cv2.imencode('.jpg', frame)
+            
+            # Encode as base64
+            frame_b64 = base64.b64encode(jpeg.tobytes()).decode('utf-8')
+            return frame_b64
+            
+        except Exception as ex:
+            logger.error(f'Frame capture error: {repr(ex)}')
+            return None
+
+###############################################################
+#
+# Audio Playback Class
+#
+###############################################################
+
+class AudioPlayer:
+    """Audio playback for TCP server"""
+    
+    def __init__(self):
+        self.sound_folder = "/home/admin/walle-replica/web_interface/static/sounds/"
+        
+    def play_sound(self, sound_name):
+        """Play a sound file"""
+        try:
+            # Find the sound file
+            sound_file = None
+            for file in os.listdir(self.sound_folder):
+                if file.startswith(sound_name) or sound_name in file:
+                    sound_file = os.path.join(self.sound_folder, file)
+                    break
+                    
+            if sound_file and os.path.exists(sound_file):
+                # Play using aplay
+                subprocess.run(['aplay', sound_file], check=True)
+                return True
+            else:
+                return False
+                
+        except Exception as ex:
+            logger.error(f'Audio playback error: {repr(ex)}')
+            return False
+            
+    def text_to_speech(self, text):
+        """Convert text to speech and play"""
+        try:
+            # Use espeak for TTS
+            subprocess.run(['espeak-ng', '-v', 'en', '-s', '150', text], check=True)
+            return True
+        except Exception as ex:
+            logger.error(f'TTS error: {repr(ex)}')
+            return False
+            
+    def get_sound_list(self):
+        """Get list of available sounds"""
+        try:
+            sounds = []
+            for file in os.listdir(self.sound_folder):
+                if file.endswith('.wav') or file.endswith('.mp3'):
+                    sounds.append(file)
+            return sounds
+        except Exception as ex:
+            logger.error(f'Sound list error: {repr(ex)}')
+            return []
+
+###############################################################
+#
 # TCP/IP Protocol Handler Class
 #
 ###############################################################
@@ -215,6 +340,8 @@ class WallETCPServer:
         self.host = host
         self.port = port
         self.arduino = ArduinoDevice()
+        self.camera = CameraStreamer()
+        self.audio = AudioPlayer()
         self.running = False
         self.server_socket = None
         
@@ -265,6 +392,12 @@ class WallETCPServer:
             logger.info("  setting <name> <value> - Update setting")
             logger.info("  status - Get robot status")
             logger.info("  stop - Stop all movement")
+            logger.info("  camera start - Start camera streaming")
+            logger.info("  camera stop - Stop camera streaming")
+            logger.info("  camera frame - Get current frame")
+            logger.info("  audio play <sound> - Play sound file")
+            logger.info("  audio speak <text> - Text to speech")
+            logger.info("  audio list - List available sounds")
             logger.info("  quit - Disconnect client")
             
             while self.running:
@@ -308,8 +441,10 @@ class WallETCPServer:
             welcome_msg = {
                 "status": "OK",
                 "message": "Connected to Wall-E TCP Control Server",
-                "version": "1.0",
-                "arduino_connected": self.arduino.is_connected()
+                "version": "1.1",
+                "arduino_connected": self.arduino.is_connected(),
+                "camera_available": True,
+                "audio_available": True
             }
             self.send_response(client_socket, welcome_msg)
             
@@ -348,7 +483,7 @@ class WallETCPServer:
     def send_response(self, client_socket, response):
         """Send JSON response to client"""
         try:
-            json_response = json.dumps(response) + '\n'
+            json_response = json.dumps(response)
             client_socket.send(json_response.encode('utf-8'))
         except Exception as ex:
             logger.error(f'Send response error: {repr(ex)}')
@@ -374,6 +509,10 @@ class WallETCPServer:
                 return self.handle_status()
             elif cmd == "stop":
                 return self.handle_stop()
+            elif cmd == "camera":
+                return self.handle_camera(parts)
+            elif cmd == "audio":
+                return self.handle_audio(parts)
             elif cmd == "quit":
                 return {"status": "OK", "msg": "Goodbye", "disconnect": True}
             else:
@@ -525,6 +664,77 @@ class WallETCPServer:
                 return {"status": "OK", "msg": "Robot stopped"}
             else:
                 return {"status": "Error", "msg": "Arduino not connected"}
+                
+        except Exception as ex:
+            return {"status": "Error", "msg": str(ex)}
+    
+    def handle_camera(self, parts):
+        """Handle camera commands"""
+        try:
+            if len(parts) < 2:
+                return {"status": "Error", "msg": "Usage: camera <start|stop|frame>"}
+            
+            subcmd = parts[1].lower()
+            
+            if subcmd == "start":
+                if self.camera.start_camera():
+                    return {"status": "OK", "msg": "Camera started"}
+                else:
+                    return {"status": "Error", "msg": "Failed to start camera"}
+                    
+            elif subcmd == "stop":
+                if self.camera.stop_camera():
+                    return {"status": "OK", "msg": "Camera stopped"}
+                else:
+                    return {"status": "Error", "msg": "Failed to stop camera"}
+                    
+            elif subcmd == "frame":
+                frame_data = self.camera.get_frame()
+                if frame_data:
+                    return {"status": "OK", "frame": frame_data, "format": "jpeg_base64"}
+                else:
+                    return {"status": "Error", "msg": "No frame available"}
+                    
+            else:
+                return {"status": "Error", "msg": "Invalid camera command"}
+                
+        except Exception as ex:
+            return {"status": "Error", "msg": str(ex)}
+    
+    def handle_audio(self, parts):
+        """Handle audio commands"""
+        try:
+            if len(parts) < 2:
+                return {"status": "Error", "msg": "Usage: audio <play|speak|list> [args]"}
+            
+            subcmd = parts[1].lower()
+            
+            if subcmd == "play":
+                if len(parts) < 3:
+                    return {"status": "Error", "msg": "Usage: audio play <sound_name>"}
+                    
+                sound_name = parts[2]
+                if self.audio.play_sound(sound_name):
+                    return {"status": "OK", "msg": f"Playing sound: {sound_name}"}
+                else:
+                    return {"status": "Error", "msg": f"Sound not found: {sound_name}"}
+                    
+            elif subcmd == "speak":
+                if len(parts) < 3:
+                    return {"status": "Error", "msg": "Usage: audio speak <text>"}
+                    
+                text = " ".join(parts[2:])
+                if self.audio.text_to_speech(text):
+                    return {"status": "OK", "msg": f"Speaking: {text}"}
+                else:
+                    return {"status": "Error", "msg": "TTS failed"}
+                    
+            elif subcmd == "list":
+                sounds = self.audio.get_sound_list()
+                return {"status": "OK", "sounds": sounds}
+                
+            else:
+                return {"status": "Error", "msg": "Invalid audio command"}
                 
         except Exception as ex:
             return {"status": "Error", "msg": str(ex)}
