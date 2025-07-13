@@ -58,12 +58,12 @@ class MovementView extends StackedView<MovementViewModel> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: viewModel.isConnected ? () => viewModel.move(50, 50) : null,
-                  child: const Text('Forward'),
+                  onPressed: viewModel.isConnected ? () => viewModel.move(-60, -60) : null,
+                  child: const Text('Left'),
                 ),
                 ElevatedButton(
-                  onPressed: viewModel.isConnected ? () => viewModel.move(0, -50) : null,
-                  child: const Text('Back'),
+                  onPressed: viewModel.isConnected ? () => viewModel.move(-60, 60) : null,
+                  child: const Text('Right'),
                 ),
               ],
             ),
@@ -73,11 +73,11 @@ class MovementView extends StackedView<MovementViewModel> {
               children: [
                 ElevatedButton(
                   onPressed: viewModel.isConnected ? () => viewModel.move(-50, 0) : null,
-                  child: const Text('Left'),
+                  child: const Text('Forward'),
                 ),
                 ElevatedButton(
                   onPressed: viewModel.isConnected ? () => viewModel.move(50, 0) : null,
-                  child: const Text('Right'),
+                  child: const Text('Backward'),
                 ),
               ],
             ),
