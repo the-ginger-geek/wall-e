@@ -1,3 +1,4 @@
+import 'dart:async';
 import '../../../app/app.locator.dart';
 import '../../../services/robot_api_service.dart';
 import "../../../ui/common/base_viewmodel.dart";
@@ -38,12 +39,14 @@ class ServoInfo {
 /// State for servo control
 class ServoState extends BaseViewState {
   final bool isLoading;
+  final bool isConnected;
   final String? errorMessage;
   final String? successMessage;
   final List<ServoInfo> servos;
 
   const ServoState({
     this.isLoading = false,
+    this.isConnected = false,
     this.errorMessage,
     this.successMessage,
     this.servos = const [],
@@ -51,12 +54,14 @@ class ServoState extends BaseViewState {
 
   ServoState copyWith({
     bool? isLoading,
+    bool? isConnected,
     String? errorMessage,
     String? successMessage,
     List<ServoInfo>? servos,
   }) {
     return ServoState(
       isLoading: isLoading ?? this.isLoading,
+      isConnected: isConnected ?? this.isConnected,
       errorMessage: errorMessage,
       successMessage: successMessage,
       servos: servos ?? this.servos,
@@ -66,6 +71,7 @@ class ServoState extends BaseViewState {
   @override
   List<Object?> get props => [
         isLoading,
+        isConnected,
         errorMessage,
         successMessage,
         servos,
@@ -75,6 +81,7 @@ class ServoState extends BaseViewState {
 /// ViewModel for servo control
 class ServoViewModel extends BaseStateViewModel<ServoState> {
   final _robotApiService = locator<RobotApiService>();
+  StreamSubscription<bool>? _connectionSubscription;
 
   static const List<ServoInfo> _defaultServos = [
     ServoInfo(name: 'head_rotation', displayName: 'Head Rotation', value: 50),
@@ -86,10 +93,24 @@ class ServoViewModel extends BaseStateViewModel<ServoState> {
     ServoInfo(name: 'eye_right', displayName: 'Right Eye', value: 50),
   ];
 
-  ServoViewModel() : super(const ServoState(servos: _defaultServos));
+  ServoViewModel() : super(const ServoState(servos: _defaultServos)) {
+    _initializeConnection();
+  }
+
+  void _initializeConnection() {
+    // Set initial connection status
+    setState(state.copyWith(isConnected: _robotApiService.isConnected));
+    
+    // Listen to connection status changes
+    _connectionSubscription = _robotApiService.connectionStatus.listen((connected) {
+      setState(state.copyWith(isConnected: connected));
+    });
+  }
 
   /// Control individual servo
   Future<void> controlServo(String servoName, int value) async {
+    if (!state.isConnected) return;
+    
     // Update servo value in state immediately for responsive UI
     final updatedServos = state.servos.map((servo) {
       if (servo.name == servoName) {
@@ -109,10 +130,12 @@ class ServoViewModel extends BaseStateViewModel<ServoState> {
       (response) => state.copyWith(
         successMessage: 'Servo ${_getDisplayName(servoName)} set to $value',
         errorMessage: null,
+        isLoading: false,
       ),
       (error) => state.copyWith(
         errorMessage: 'Failed to control servo: $error',
         successMessage: null,
+        isLoading: false,
       ),
       state.copyWith(isLoading: true, errorMessage: null, successMessage: null),
     );
@@ -120,6 +143,8 @@ class ServoViewModel extends BaseStateViewModel<ServoState> {
 
   /// Control multiple servos at once
   Future<void> controlMultipleServos(Map<String, int> servoValues) async {
+    if (!state.isConnected) return;
+    
     // Update all servo values in state immediately
     final updatedServos = state.servos.map((servo) {
       if (servoValues.containsKey(servo.name)) {
@@ -139,10 +164,12 @@ class ServoViewModel extends BaseStateViewModel<ServoState> {
       (responses) => state.copyWith(
         successMessage: 'Multiple servos updated successfully',
         errorMessage: null,
+        isLoading: false,
       ),
       (error) => state.copyWith(
         errorMessage: 'Failed to control servos: $error',
         successMessage: null,
+        isLoading: false,
       ),
       state.copyWith(isLoading: true, errorMessage: null, successMessage: null),
     );
@@ -172,5 +199,11 @@ class ServoViewModel extends BaseStateViewModel<ServoState> {
       errorMessage: null,
       successMessage: null,
     ));
+  }
+
+  @override
+  void dispose() {
+    _connectionSubscription?.cancel();
+    super.dispose();
   }
 }

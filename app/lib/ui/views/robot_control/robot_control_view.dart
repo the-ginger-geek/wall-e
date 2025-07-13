@@ -100,9 +100,9 @@ class RobotControlView extends StackedView<RobotControlViewModel> {
                           padding: const EdgeInsets.all(16.0),
                           child: AnimationView(isConnected: viewModel.isConnected),
                         ),
-                        SingleChildScrollView(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ServoView(isConnected: viewModel.isConnected),
+                        const SingleChildScrollView(
+                          padding: EdgeInsets.all(16.0),
+                          child: ServoView(),
                         ),
                         SingleChildScrollView(
                           padding: const EdgeInsets.all(16.0),

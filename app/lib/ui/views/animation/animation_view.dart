@@ -28,7 +28,7 @@ class AnimationView extends StackedView<AnimationViewModel> {
                 ),
                 if (viewModel.state.currentAnimation != null)
                   ElevatedButton.icon(
-                    onPressed: isConnected && !viewModel.state.isLoading ? viewModel.stopAnimation : null,
+                    onPressed: isConnected ? viewModel.stopAnimation : null,
                     icon: const Icon(Icons.stop),
                     label: const Text('Stop'),
                     style: ElevatedButton.styleFrom(
@@ -56,7 +56,7 @@ class AnimationView extends StackedView<AnimationViewModel> {
                 final isPlaying = viewModel.state.currentAnimation == animation.id;
                 
                 return ElevatedButton(
-                  onPressed: isConnected && !viewModel.state.isLoading 
+                  onPressed: isConnected
                       ? () => viewModel.playAnimation(animation.id)
                       : null,
                   style: ElevatedButton.styleFrom(

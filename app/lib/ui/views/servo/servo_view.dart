@@ -3,9 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'servo_viewmodel.dart';
 
 class ServoView extends StackedView<ServoViewModel> {
-  final bool isConnected;
-  
-  const ServoView({required this.isConnected, super.key});
+  const ServoView({super.key});
 
   @override
   Widget builder(
@@ -27,7 +25,7 @@ class ServoView extends StackedView<ServoViewModel> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton.icon(
-                  onPressed: isConnected && !viewModel.state.isLoading ? viewModel.resetAllServos : null,
+                  onPressed: viewModel.state.isConnected && !viewModel.state.isLoading ? viewModel.resetAllServos : null,
                   icon: const Icon(Icons.refresh),
                   label: const Text('Reset All'),
                   style: ElevatedButton.styleFrom(
@@ -68,10 +66,11 @@ class ServoView extends StackedView<ServoViewModel> {
                       min: servo.minValue.toDouble(),
                       max: servo.maxValue.toDouble(),
                       divisions: 100,
-                      onChanged: isConnected && !viewModel.state.isLoading
+                      onChanged: (value) {},
+                      onChangeEnd: viewModel.state.isConnected && !viewModel.state.isLoading
                           ? (value) => viewModel.controlServo(servo.name, value.round())
                           : null,
-                      activeColor: isConnected ? Colors.blue : Colors.grey,
+                      activeColor: viewModel.state.isConnected ? Colors.blue : Colors.grey,
                       inactiveColor: Colors.grey.withValues(alpha: 0.3),
                     ),
                   ],
@@ -152,7 +151,7 @@ class ServoView extends StackedView<ServoViewModel> {
             ],
             
             // Connection status
-            if (!isConnected) ...[
+            if (!viewModel.state.isConnected) ...[
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
