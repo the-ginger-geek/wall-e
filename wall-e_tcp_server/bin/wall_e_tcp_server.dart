@@ -33,7 +33,7 @@ void startServer() {
 
 /// Welcomes a new client by sending a welcome message.
 void _welcomeNewClient(Socket socket) {
-  socket.writeln({
+  socket.writeln(jsonEncode({
     "status": "OK",
     "message": "Connected to Wall-E Dart TCP Control Server",
     "version": "1.1",
@@ -41,5 +41,5 @@ void _welcomeNewClient(Socket socket) {
     "arduino_connected": ArduinoDeviceController.getInstance().isConnected,
     "camera_available": true,
     "audio_available": true
-  });
+  }));
 }
