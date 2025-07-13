@@ -11,8 +11,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   
-  # State Management & MVVM
-  provider: ^6.1.2
+  # State Management & MVVM  
+  stacked: ^3.4.2
+  stacked_services: ^1.2.0
   
   # Service Locator
   get_it: ^7.6.4
@@ -24,6 +25,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.7
+  stacked_generator: ^1.4.0
 
 flutter:
   uses-material-design: true

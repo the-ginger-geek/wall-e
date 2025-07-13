@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'core/service_locator.dart';
-import 'screens/robot_control_screen_mvvm.dart';
+import 'app/app.locator.dart';
+import 'ui/views/robot_control/robot_control_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   // Initialize service locator and dependencies
-  await setupServiceLocator();
+  await setupLocator();
   
   runApp(const WallEControllerApp());
 }
@@ -45,7 +45,7 @@ class WallEControllerApp extends StatelessWidget {
           foregroundColor: Color(0xFFFFFFFF),
         ),
       ),
-      home: const RobotControlScreen(),
+      home: const RobotControlView(),
     );
   }
 }

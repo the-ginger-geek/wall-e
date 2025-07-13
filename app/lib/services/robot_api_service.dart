@@ -39,7 +39,7 @@ class RobotStatus {
 }
 
 /// Service for communicating with the Wall-E robot TCP server
-class RobotAPIService {
+class RobotApiService {
   static const String _robotHost = '192.168.0.155';
   static const int _robotPort = 5001;
   
@@ -209,13 +209,26 @@ class RobotAPIService {
     });
   }
   
-  // Settings control (mock implementation for now)
+  // Settings control
   Future<Map<String, dynamic>> updateSetting(String setting, dynamic value) async {
-    return {
-      'status': 'OK',
-      'message': 'Settings not yet implemented in Dart server',
-      'statusCode': 200,
-    };
+    return await _sendRequest({
+      'type': 'setting',
+      'setting': setting,
+      'value': value,
+    });
+  }
+
+  // Settings control helpers
+  Future<Map<String, dynamic>> updateSteeringOffset(int value) async {
+    return await updateSetting('steering_offset', value);
+  }
+
+  Future<Map<String, dynamic>> updateMotorDeadzone(int value) async {
+    return await updateSetting('motor_deadzone', value);
+  }
+
+  Future<Map<String, dynamic>> updateAutoMode(bool value) async {
+    return await updateSetting('auto_mode', value);
   }
   
   // Camera control
