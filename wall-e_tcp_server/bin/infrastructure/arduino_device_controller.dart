@@ -159,6 +159,7 @@ try:
     
     while True:
         line = sys.stdin.readline().strip()
+        print(f"Input from client: {line}")
         if line == "QUIT":
             break
         if line:
@@ -169,6 +170,7 @@ try:
 except Exception as e:
     print(f"Error: {e}")
 finally:
+    print("closing connection")
     if 'ser' in locals():
         ser.close()
 ''';

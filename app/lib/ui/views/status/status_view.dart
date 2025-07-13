@@ -16,12 +16,8 @@ class StatusView extends StackedView<StatusViewModel> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const Text(
-              'Robot Status',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   viewModel.isConnected ? Icons.check_circle : Icons.error,
@@ -35,14 +31,6 @@ class StatusView extends StackedView<StatusViewModel> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const Icon(Icons.battery_full),
-                const SizedBox(width: 8),
-                Text('Battery: ${viewModel.batteryLevel}'),
               ],
             ),
             if (viewModel.hasError)

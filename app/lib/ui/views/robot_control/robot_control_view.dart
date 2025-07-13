@@ -35,7 +35,10 @@ class RobotControlView extends StackedView<RobotControlViewModel> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  const StatusView(),
+                  const Align(
+                    alignment: Alignment.centerRight,
+                    child: StatusView(),
+                  ),
                   const SizedBox(height: 16),
                   const MovementView(),
                   const SizedBox(height: 16),
@@ -47,15 +50,21 @@ class RobotControlView extends StackedView<RobotControlViewModel> {
                         children: [
                           const Text(
                             'Other Controls',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 16),
-                          const Text('Servo, Animation, Camera, Audio, and Settings controls will be added here.'),
+                          const Text(
+                              'Servo, Animation, Camera, Audio, and Settings controls will be added here.'),
                           const SizedBox(height: 16),
                           ElevatedButton(
-                            onPressed: viewModel.isConnected ? viewModel.emergencyStop : null,
-                            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                            child: const Text('EMERGENCY STOP', style: TextStyle(color: Colors.white)),
+                            onPressed: viewModel.isConnected
+                                ? viewModel.emergencyStop
+                                : null,
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red),
+                            child: const Text('EMERGENCY STOP',
+                                style: TextStyle(color: Colors.white)),
                           ),
                         ],
                       ),
@@ -68,7 +77,7 @@ class RobotControlView extends StackedView<RobotControlViewModel> {
   }
 
   @override
-  RobotControlViewModel viewModelBuilder(BuildContext context) => 
+  RobotControlViewModel viewModelBuilder(BuildContext context) =>
       RobotControlViewModel();
 
   @override
