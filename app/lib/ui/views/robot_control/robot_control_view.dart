@@ -93,11 +93,9 @@ class RobotControlView extends StackedView<RobotControlViewModel> {
                   // Tab views
                   Expanded(
                     child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        SingleChildScrollView(
-                          padding: const EdgeInsets.all(16.0),
-                          child: MovementView(isConnected: viewModel.isConnected),
-                        ),
+                        MovementView(isConnected: viewModel.isConnected),
                         SingleChildScrollView(
                           padding: const EdgeInsets.all(16.0),
                           child: AnimationView(isConnected: viewModel.isConnected),
