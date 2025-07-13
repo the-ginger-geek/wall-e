@@ -31,7 +31,7 @@ class Servo extends Request {
   }
 
   @override
-  String get toExternalAction => '$type ${name.code} ${value.toStringAsFixed(2)}';
+  String get toExternalAction => '${name.code} ${value.toStringAsFixed(2)}';
 }
 
 enum ServoName {

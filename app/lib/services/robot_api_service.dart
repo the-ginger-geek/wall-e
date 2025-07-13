@@ -47,6 +47,8 @@ class RobotApiService {
   final StreamController<String> _responseController = StreamController<String>.broadcast();
   bool _isConnected = false;
   bool _isConnecting = false;
+  final Map<String, Completer<String>> _pendingRequests = {};
+  int _requestCounter = 0;
   
   /// Stream of connection status changes
   final StreamController<bool> _connectionStatusController = StreamController<bool>.broadcast();
@@ -73,16 +75,17 @@ class RobotApiService {
       _socket!.listen(
         (List<int> data) {
           final response = String.fromCharCodes(data).trim();
-          _responseController.add(response);
+          _handleResponse(response);
         },
         onError: (error) {
           _isConnected = false;
           _connectionStatusController.add(false);
-          _responseController.addError(RobotAPIException('Connection error: $error', 0));
+          _handleError(RobotAPIException('Connection error: $error', 0));
         },
         onDone: () {
           _isConnected = false;
           _connectionStatusController.add(false);
+          _handleError(RobotAPIException('Connection closed', 0));
         },
       );
     } catch (e) {
@@ -108,6 +111,44 @@ class RobotApiService {
     _connectionStatusController.add(false);
   }
   
+  void _handleResponse(String response) {
+    try {
+      final responseData = jsonDecode(response);
+      final requestId = responseData['request_id'] as String?;
+      
+      if (requestId != null && _pendingRequests.containsKey(requestId)) {
+        final completer = _pendingRequests.remove(requestId);
+        completer?.complete(response);
+      } else {
+        // Handle responses without request_id (legacy support)
+        if (_pendingRequests.isNotEmpty) {
+          final firstCompleter = _pendingRequests.values.first;
+          final firstKey = _pendingRequests.keys.first;
+          _pendingRequests.remove(firstKey);
+          firstCompleter.complete(response);
+        }
+      }
+    } catch (e) {
+      // If JSON parsing fails, complete any pending request
+      if (_pendingRequests.isNotEmpty) {
+        final firstCompleter = _pendingRequests.values.first;
+        final firstKey = _pendingRequests.keys.first;
+        _pendingRequests.remove(firstKey);
+        firstCompleter.complete(response);
+      }
+    }
+  }
+  
+  void _handleError(RobotAPIException error) {
+    // Complete all pending requests with error
+    for (final completer in _pendingRequests.values) {
+      if (!completer.isCompleted) {
+        completer.completeError(error);
+      }
+    }
+    _pendingRequests.clear();
+  }
+  
   /// Send a JSON request and wait for response
   Future<Map<String, dynamic>> _sendRequest(Map<String, dynamic> request) async {
     if (!_isConnected) {
@@ -118,15 +159,27 @@ class RobotApiService {
       throw RobotAPIException('Not connected to robot', 0);
     }
     
+    // Generate unique request ID
+    final requestId = 'req_${++_requestCounter}_${DateTime.now().millisecondsSinceEpoch}';
+    final completer = Completer<String>();
+    _pendingRequests[requestId] = completer;
+    
     try {
+      // Add request ID to request
+      final requestWithId = Map<String, dynamic>.from(request);
+      requestWithId['request_id'] = requestId;
+      
       // Send JSON request
-      final jsonRequest = jsonEncode(request);
+      final jsonRequest = jsonEncode(requestWithId);
       _socket!.write('$jsonRequest\n');
       
-      // Wait for response
-      final response = await _responseController.stream.first.timeout(
+      // Wait for response with timeout
+      final response = await completer.future.timeout(
         const Duration(seconds: 5),
-        onTimeout: () => throw RobotAPIException('Request timeout', 0),
+        onTimeout: () {
+          _pendingRequests.remove(requestId);
+          throw RobotAPIException('Request timeout', 0);
+        },
       );
       
       // Parse JSON response
@@ -143,6 +196,7 @@ class RobotApiService {
         return responseData;
       }
     } catch (e) {
+      _pendingRequests.remove(requestId);
       if (e is RobotAPIException) {
         rethrow;
       }
@@ -279,6 +333,9 @@ class RobotApiService {
   
   /// Dispose resources
   void dispose() {
+    // Cancel all pending requests
+    _handleError(RobotAPIException('Service disposed', 0));
+    
     disconnect();
     _responseController.close();
     _connectionStatusController.close();
