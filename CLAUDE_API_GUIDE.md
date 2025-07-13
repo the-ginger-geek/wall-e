@@ -310,8 +310,8 @@ sudo systemctl start walle-tcp.service
 If not using the service, you can start manually:
 
 ```bash
-cd ~/walle-replica
-python3 tcp_server.py
+cd ~/walle-replica/wall-e_tcp_server
+./wall_e_tcp_server
 ```
 
 ### Check if Server is Running
@@ -320,7 +320,7 @@ python3 tcp_server.py
 sudo systemctl status walle-tcp.service
 
 # Or check if port is listening
-netstat -an | grep :5000
+netstat -an | grep :5001
 ```
 
 The server will automatically connect to the Arduino and start listening for connections.

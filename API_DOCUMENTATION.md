@@ -1,17 +1,25 @@
-# WALL-E Robot Control Protocol
+# WALL-E Robot Control Protocol (DEPRECATED)
 
-This document describes the TCP/IP protocol for controlling the WALL-E robot programmatically.
+**⚠️ DEPRECATED: This documentation is for the legacy Python TCP server. Please use the new Dart TCP server documentation.**
 
-## Connection Details
+**➡️ See [DART_TCP_API_DOCUMENTATION.md](DART_TCP_API_DOCUMENTATION.md) for the current API.**
+
+---
+
+This document describes the legacy TCP/IP protocol for controlling the WALL-E robot programmatically using the deprecated Python server.
+
+## Connection Details (Legacy Python Server)
 ```
 Host: 192.168.0.155 (or your robot's IP)
-Port: 5000
+Port: 5000 (DEPRECATED - Dart server uses 5001)
 Protocol: TCP/IP
 ```
 
-## Protocol Overview
+## Protocol Overview (Legacy)
 
-The Wall-E robot uses a simple text-based TCP/IP protocol. Commands are sent as plain text strings, and responses are returned as JSON objects.
+The legacy Wall-E Python server used a simple text-based TCP/IP protocol. Commands were sent as plain text strings, and responses were returned as JSON objects.
+
+**Note: The new Dart server uses JSON requests and responses on port 5001.**
 
 ### Connection Flow
 1. Connect to the robot via TCP socket
