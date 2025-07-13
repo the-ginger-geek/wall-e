@@ -150,7 +150,7 @@ import sys
 import time
 
 port = sys.argv[1]
-baudrate = 9600
+baudrate = 115200
 
 try:
     ser = serial.Serial(port, baudrate, timeout=1)
