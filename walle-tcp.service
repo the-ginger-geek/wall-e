@@ -5,8 +5,8 @@ Before=walle.service
 
 [Service]
 Type=simple
-WorkingDirectory=/home/admin/walle-replica/wall-e_tcp_server
-ExecStart=/home/admin/walle-replica/wall-e_tcp_server/wall_e_tcp_server
+WorkingDirectory=/home/admin/wall-e/wall-e_tcp_server
+ExecStart=/home/admin/wall-e/wall-e_tcp_server/wall_e_tcp_server
 KillSignal=SIGINT
 Restart=on-failure
 Environment=XDG_RUNTIME_DIR=/run/user/1000

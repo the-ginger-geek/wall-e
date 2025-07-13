@@ -114,7 +114,7 @@ class ArduinoDeviceController {
   /// Lists available serial ports that might have Arduino devices.
   static Future<List<String>> listAvailablePorts() async {
     try {
-      final result = await Process.run('python3', ['-c']);
+      final result = await Process.run('python3', ['-c', listPortsCommand]);
 
       if (result.exitCode == 0) {
         return result.stdout
