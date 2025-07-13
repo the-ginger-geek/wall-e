@@ -15,12 +15,17 @@ void main(List<String> arguments) {
 void startServer() {
   ServerSocket.bind('0.0.0.0', 5001).then((ServerSocket server) {
     server.listen((Socket socket) {
-      // Send a welcome message to the new client
-      _welcomeNewClient(socket);
-
+      bool welcomeSent = false;
+      
       socket.listen((List<int> data) async {
         final message = String.fromCharCodes(data);
         Logger.writeLog('Request: $message');
+
+        // Send welcome message on first client message
+        if (!welcomeSent) {
+          _welcomeNewClient(socket);
+          welcomeSent = true;
+        }
 
         final request = RequestParser.parseRequest(message);
         final response = await RequestHandler.handleRequest(request);

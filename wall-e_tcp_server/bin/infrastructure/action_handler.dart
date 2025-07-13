@@ -64,8 +64,8 @@ class RequestHandler {
     Move request,
     ArduinoDeviceController deviceController,
   ) async {
-    final x = request.x;
-    final y = request.y;
+    final x = request.x.round();
+    final y = request.y.round();
 
     if (x > -100 && x < 100) {
       await deviceController.sendCommand(

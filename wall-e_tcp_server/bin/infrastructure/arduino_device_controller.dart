@@ -80,6 +80,7 @@ class ArduinoDeviceController {
     }
 
     try {
+      Logger.writeLog('Sending command to Arduino: $command');
       _serialProcess!.stdin.writeln(command);
       await _serialProcess!.stdin.flush();
 
