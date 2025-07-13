@@ -3,7 +3,9 @@ import 'package:stacked/stacked.dart';
 import 'movement_viewmodel.dart';
 
 class MovementView extends StackedView<MovementViewModel> {
-  const MovementView({Key? key}) : super(key: key);
+  final bool isConnected;
+  
+  const MovementView({required this.isConnected, Key? key}) : super(key: key);
 
   @override
   Widget builder(

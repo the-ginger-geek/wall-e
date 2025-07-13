@@ -3,7 +3,9 @@ import 'package:stacked/stacked.dart';
 import 'camera_viewmodel.dart';
 
 class CameraView extends StackedView<CameraViewModel> {
-  const CameraView({super.key});
+  final bool isConnected;
+  
+  const CameraView({required this.isConnected, super.key});
 
   @override
   Widget builder(

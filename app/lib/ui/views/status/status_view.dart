@@ -13,7 +13,7 @@ class StatusView extends StackedView<StatusViewModel> {
   ) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Row(
@@ -21,13 +21,13 @@ class StatusView extends StackedView<StatusViewModel> {
               children: [
                 Icon(
                   viewModel.isConnected ? Icons.check_circle : Icons.error,
-                  color: viewModel.isConnected ? Colors.green : Colors.red,
+                  color: viewModel.isConnected ? Colors.green : Colors.red.shade400,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   viewModel.isConnected ? 'Connected' : 'Disconnected',
                   style: TextStyle(
-                    color: viewModel.isConnected ? Colors.green : Colors.red,
+                    color: viewModel.isConnected ? Colors.green : Colors.red.shade400,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

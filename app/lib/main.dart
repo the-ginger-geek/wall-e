@@ -21,22 +21,29 @@ class WallEControllerApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFFD700),
-          primary: const Color(0xFFFFD700),
-          secondary: const Color(0xFF808080),
+          seedColor: const Color(0xFFE6B84A),
+          primary: const Color(0xFFE6B84A),
+          secondary: const Color(0xFF8B7355),
           error: const Color(0xFFDC143C),
-          surface: const Color(0xFFFFFFFF),
-          onSurface: const Color(0xFF000000),
+          // rust-tinted colors for authentic WALL-E look
+          surface: const Color(0xFF4A453E),
+          onSurface: const Color(0xFFFFFFFF),
           onPrimary: const Color(0xFF000000),
           onSecondary: const Color(0xFFFFFFFF),
         ),
+        cardTheme: CardThemeData(
+          color: const Color(0xFF3D3931),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+        ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFFFD700),
+          backgroundColor: Color(0xFFE6B84A),
           foregroundColor: Color(0xFF000000),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFFFD700),
+            backgroundColor: const Color(0xFFE6B84A),
             foregroundColor: const Color(0xFF000000),
           ),
         ),
