@@ -19,7 +19,7 @@ class Servo extends Request {
   factory Servo.fromJson(Map<String, dynamic> json) {
     final nameString = json['name'] as String;
     final name = ServoName.values.firstWhere(
-          (d) => d.toString().split('.').last == nameString,
+          (d) => d.name == nameString,
       orElse: () => ServoName.neckBottom,
     );
 
