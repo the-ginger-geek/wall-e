@@ -96,9 +96,9 @@ class RobotControlView extends StackedView<RobotControlViewModel> {
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
                         MovementView(isConnected: viewModel.isConnected),
-                        SingleChildScrollView(
-                          padding: const EdgeInsets.all(16.0),
-                          child: AnimationView(isConnected: viewModel.isConnected),
+                        const SingleChildScrollView(
+                          padding: EdgeInsets.all(16.0),
+                          child: AnimationView(),
                         ),
                         const SingleChildScrollView(
                           padding: EdgeInsets.all(16.0),

@@ -41,10 +41,12 @@ class MovementViewModel extends BaseStateViewModel<MovementState> {
         currentY: y,
         successMessage: 'Movement command sent successfully',
         errorMessage: null,
+        isLoading: false,
       ),
       (error) => state.copyWith(
         errorMessage: 'Movement failed: $error',
         successMessage: null,
+        isLoading: false,
       ),
       state.copyWith(isLoading: true, errorMessage: null, successMessage: null),
     );
@@ -58,6 +60,7 @@ class MovementViewModel extends BaseStateViewModel<MovementState> {
     setState(state.copyWith(
       errorMessage: null,
       successMessage: null,
+      isLoading: false,
     ));
   }
 
