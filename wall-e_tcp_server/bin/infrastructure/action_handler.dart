@@ -5,6 +5,7 @@ import '../domain/requests/disconnect.dart';
 import '../domain/requests/move.dart';
 import '../domain/requests/camera.dart';
 import '../domain/requests/audio.dart';
+import '../domain/requests/status.dart';
 import 'arduino_device_controller.dart';
 import 'camera_streamer.dart';
 import 'audio_player.dart';
@@ -36,6 +37,10 @@ class RequestHandler {
 
       if (request is Audio) {
         return await _processAudio(request);
+      }
+
+      if (request is Status) {
+        return _processStatus(deviceController);
       }
 
       final message = await deviceController.sendCommand(
@@ -217,5 +222,13 @@ class RequestHandler {
           message: 'Available sounds: ${sounds.join(", ")}',
         );
     }
+  }
+
+  static Response _processStatus(ArduinoDeviceController deviceController) {
+    return Response(
+      status: 'OK',
+      statusCode: 200,
+      message: 'Status retrieved successfully',
+    );
   }
 }

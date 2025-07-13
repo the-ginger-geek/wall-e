@@ -198,14 +198,11 @@ class RobotAPI {
     });
   }
   
-  // Status check (not implemented in Dart server yet)
+  // Status check
   static Future<Map<String, dynamic>> getStatus() async {
-    // For now, return a mock status since Dart server doesn't have status command yet
-    return {
-      'status': 'OK',
-      'message': 'Status check not yet implemented in Dart server',
-      'statusCode': 200,
-    };
+    return await _sendRequest({
+      'type': 'status',
+    });
   }
   
   // Emergency stop

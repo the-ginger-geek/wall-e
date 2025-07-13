@@ -9,7 +9,7 @@ class Response {
     required this.message,
   });
 
-  Map<String, String> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'status': status,
       'message': message,

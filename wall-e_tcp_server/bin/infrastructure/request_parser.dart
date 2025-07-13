@@ -6,6 +6,7 @@ import '../domain/requests/animation.dart';
 import '../domain/requests/stop.dart';
 import '../domain/requests/camera.dart';
 import '../domain/requests/audio.dart';
+import '../domain/requests/status.dart';
 
 class RequestParser {
 
@@ -30,6 +31,8 @@ class RequestParser {
             return Camera.fromJson(json);
           case 'audio':
             return Audio.fromJson(json);
+          case 'status':
+            return Status.fromJson(json);
           default:
             throw FormatException('Unknown request type: $requestType');
         }

@@ -24,11 +24,13 @@ class RobotStatus {
   });
   
   factory RobotStatus.fromJson(Map<String, dynamic> json) {
-    final robotStatus = json['status'] ?? {};
+    final data = json['data'] ?? {};
+    final status = json['status'] ?? 'Unknown';
 
     return RobotStatus(
-      status: robotStatus.toString(),
-      arduinoConnected: robotStatus == 'OK',
+      status: status,
+      arduinoConnected: data['arduino_connected'] ?? false,
+      batteryLevel: data['battery_level'] ?? 'Unknown',
     );
   }
   
@@ -186,13 +188,11 @@ class RobotAPIService {
     });
   }
   
-  // Status check (mock implementation for now)
+  // Status check
   Future<Map<String, dynamic>> getStatus() async {
-    return {
-      'status': 'OK',
-      'message': 'Status check not yet implemented in Dart server',
-      'statusCode': 200,
-    };
+    return await _sendRequest({
+      'type': 'status',
+    });
   }
   
   // Emergency stop
