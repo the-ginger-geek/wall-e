@@ -1,1 +1,497 @@
-2025-07-13 18:33:14.424806: Wall-E controller connected on port: /dev/ttyACM0
+2025-07-14 14:49:58.385945: Failed to connect to Wall-E controller
+2025-07-14 14:55:05.965613: Request: {"type":"servo","name":"arm_left","value":87.0,"request_id":"req_26_1752497706683"}
+
+2025-07-14 14:55:05.967299: Arduino not connected
+2025-07-14 14:55:05.968025: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:08.213387: Request: {"type":"servo","name":"neck_bottom","value":18.0,"request_id":"req_27_1752497708954"}
+
+2025-07-14 14:55:08.214028: Arduino not connected
+2025-07-14 14:55:08.214409: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:09.622301: Request: {"type":"servo","name":"arm_left","value":10.0,"request_id":"req_28_1752497710413"}
+
+2025-07-14 14:55:09.622881: Arduino not connected
+2025-07-14 14:55:09.623215: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:14.970177: Request: {"type":"servo","name":"eye_left","value":52.0,"request_id":"req_29_1752497715719"}
+
+2025-07-14 14:55:14.970775: Arduino not connected
+2025-07-14 14:55:14.971081: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:15.335389: Request: {"type":"servo","name":"eye_left","value":52.0,"request_id":"req_30_1752497716126"}
+
+2025-07-14 14:55:15.335918: Arduino not connected
+2025-07-14 14:55:15.336266: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:16.150046: Request: {"type":"servo","name":"eye_left","value":88.0,"request_id":"req_31_1752497716941"}
+
+2025-07-14 14:55:16.150625: Arduino not connected
+2025-07-14 14:55:16.150941: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:16.915223: Request: {"type":"servo","name":"eye_left","value":99.0,"request_id":"req_32_1752497717710"}
+
+2025-07-14 14:55:16.915812: Arduino not connected
+2025-07-14 14:55:16.916157: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:17.785920: Request: {"type":"servo","name":"eye_left","value":60.0,"request_id":"req_33_1752497718570"}
+
+2025-07-14 14:55:17.786491: Arduino not connected
+2025-07-14 14:55:17.786802: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:20.292662: Request: {"type":"servo","name":"neck_bottom","value":78.0,"request_id":"req_34_1752497721048"}
+
+2025-07-14 14:55:20.293277: Arduino not connected
+2025-07-14 14:55:20.297195: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:22.521385: Request: {"type":"servo","name":"neck_bottom","value":19.0,"request_id":"req_35_1752497723313"}
+
+2025-07-14 14:55:22.522027: Arduino not connected
+2025-07-14 14:55:22.522380: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:24.241322: Request: {"type":"servo","name":"neck_bottom","value":85.0,"request_id":"req_36_1752497725033"}
+
+2025-07-14 14:55:24.241959: Arduino not connected
+2025-07-14 14:55:24.242300: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:26.533187: Request: {"type":"servo","name":"neck_bottom","value":13.0,"request_id":"req_37_1752497727278"}
+
+2025-07-14 14:55:26.533775: Arduino not connected
+2025-07-14 14:55:26.534214: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:28.025538: Request: {"type":"servo","name":"arm_right","value":86.0,"request_id":"req_38_1752497728819"}
+
+2025-07-14 14:55:28.028016: Arduino not connected
+2025-07-14 14:55:28.028365: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:31.646691: Request: {"type":"servo","name":"eye_left","value":100.0,"request_id":"req_39_1752497732347"}
+
+2025-07-14 14:55:31.647307: Arduino not connected
+2025-07-14 14:55:31.650920: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:32.337148: Request: {"type":"servo","name":"eye_left","value":100.0,"request_id":"req_40_1752497733129"}
+
+2025-07-14 14:55:32.337647: Arduino not connected
+2025-07-14 14:55:32.338016: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:33.906445: Request: {"type":"servo","name":"eye_right","value":100.0,"request_id":"req_41_1752497734696"}
+
+2025-07-14 14:55:33.908880: Arduino not connected
+2025-07-14 14:55:33.909212: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:35.287264: Request: {"type":"servo","name":"arm_right","value":100.0,"request_id":"req_42_1752497736083"}
+
+2025-07-14 14:55:35.287811: Arduino not connected
+2025-07-14 14:55:35.288078: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:36.648779: Request: {"type":"servo","name":"arm_left","value":100.0,"request_id":"req_43_1752497737445"}
+
+2025-07-14 14:55:36.649315: Arduino not connected
+2025-07-14 14:55:36.649668: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:36.908620: Request: {"type":"servo","name":"arm_left","value":96.0,"request_id":"req_44_1752497737705"}
+
+2025-07-14 14:55:36.909201: Arduino not connected
+2025-07-14 14:55:36.909557: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:37.160177: Request: {"type":"servo","name":"arm_left","value":94.0,"request_id":"req_45_1752497737957"}
+
+2025-07-14 14:55:37.161364: Arduino not connected
+2025-07-14 14:55:37.162230: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:38.710230: Request: {"type":"servo","name":"arm_left","value":100.0,"request_id":"req_46_1752497739510"}
+
+2025-07-14 14:55:38.710790: Arduino not connected
+2025-07-14 14:55:38.711075: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:41.875194: Request: {"type":"servo","name":"arm_left","value":18.0,"request_id":"req_47_1752497742582"}
+
+2025-07-14 14:55:41.877674: Arduino not connected
+2025-07-14 14:55:41.881621: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:42.079561: Request: {"type":"servo","name":"arm_left","value":10.0,"request_id":"req_48_1752497742885"}
+
+2025-07-14 14:55:42.080121: Arduino not connected
+2025-07-14 14:55:42.080490: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:43.323566: Request: {"type":"servo","name":"arm_left","value":5.0,"request_id":"req_49_1752497744116"}
+
+2025-07-14 14:55:43.324144: Arduino not connected
+2025-07-14 14:55:43.324451: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:44.590963: Request: {"type":"servo","name":"arm_left","value":4.0,"request_id":"req_50_1752497745380"}
+
+2025-07-14 14:55:44.591500: Arduino not connected
+2025-07-14 14:55:44.591829: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:45.421211: Request: {"type":"servo","name":"arm_left","value":0.0,"request_id":"req_51_1752497746219"}
+
+2025-07-14 14:55:45.421781: Arduino not connected
+2025-07-14 14:55:45.422240: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:47.261972: Request: {"type":"servo","name":"arm_left","value":70.0,"request_id":"req_52_1752497748060"}
+
+2025-07-14 14:55:47.262572: Arduino not connected
+2025-07-14 14:55:47.266087: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:48.289582: Request: {"type":"servo","name":"arm_right","value":54.0,"request_id":"req_53_1752497749088"}
+
+2025-07-14 14:55:48.290228: Arduino not connected
+2025-07-14 14:55:48.290598: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:51.599551: Request: {"type":"servo","name":"neck_bottom","value":100.0,"request_id":"req_54_1752497752309"}
+
+2025-07-14 14:55:51.600192: Arduino not connected
+2025-07-14 14:55:51.600504: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:51.872222: Request: {"type":"servo","name":"neck_bottom","value":89.0,"request_id":"req_55_1752497752672"}
+
+2025-07-14 14:55:51.872780: Arduino not connected
+2025-07-14 14:55:51.873074: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:52.682521: Request: {"type":"servo","name":"neck_bottom","value":14.0,"request_id":"req_56_1752497753485"}
+
+2025-07-14 14:55:52.683046: Arduino not connected
+2025-07-14 14:55:52.683373: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:53.455988: Request: {"type":"servo","name":"neck_bottom","value":100.0,"request_id":"req_57_1752497754255"}
+
+2025-07-14 14:55:53.456574: Arduino not connected
+2025-07-14 14:55:53.456890: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:54.640487: Request: {"type":"servo","name":"neck_bottom","value":16.0,"request_id":"req_58_1752497755437"}
+
+2025-07-14 14:55:54.641050: Arduino not connected
+2025-07-14 14:55:54.641361: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:55.958233: Request: {"type":"servo","name":"neck_bottom","value":80.0,"request_id":"req_59_1752497756758"}
+
+2025-07-14 14:55:55.958790: Arduino not connected
+2025-07-14 14:55:55.959070: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:57.161997: Request: {"type":"servo","name":"neck_bottom","value":71.0,"request_id":"req_60_1752497757962"}
+
+2025-07-14 14:55:57.162563: Arduino not connected
+2025-07-14 14:55:57.162882: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:55:57.710481: Request: {"type":"servo","name":"neck_bottom","value":15.0,"request_id":"req_61_1752497758511"}
+
+2025-07-14 14:55:57.711062: Arduino not connected
+2025-07-14 14:55:57.711457: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:02.138519: Request: {"type":"servo","name":"neck_bottom","value":8.0,"request_id":"req_62_1752497762839"}
+
+2025-07-14 14:56:02.139101: Arduino not connected
+2025-07-14 14:56:02.139388: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:03.932903: Request: {"type":"servo","name":"neck_bottom","value":43.0,"request_id":"req_63_1752497764734"}
+
+2025-07-14 14:56:03.933430: Arduino not connected
+2025-07-14 14:56:03.933745: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:16.768200: Request: {"type":"servo","name":"head_rotation","value":55.0,"request_id":"req_64_1752497777492"}
+
+2025-07-14 14:56:16.768845: Arduino not connected
+2025-07-14 14:56:16.769248: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:21.986602: Request: {"type":"servo","name":"neck_top","value":41.0,"request_id":"req_65_1752497782688"}
+
+2025-07-14 14:56:21.987228: Arduino not connected
+2025-07-14 14:56:21.991164: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:23.678904: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_66_1752497784473"}
+
+2025-07-14 14:56:23.679488: Arduino not connected
+2025-07-14 14:56:23.679790: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:23.750251: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_67_1752497784556"}
+
+2025-07-14 14:56:23.750821: Arduino not connected
+2025-07-14 14:56:23.751180: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:23.766699: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_68_1752497784579"}
+
+2025-07-14 14:56:23.767306: Arduino not connected
+2025-07-14 14:56:23.767836: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:23.781753: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_69_1752497784595"}
+
+2025-07-14 14:56:23.782326: Arduino not connected
+2025-07-14 14:56:23.782625: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:23.789628: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_70_1752497784603"}
+
+2025-07-14 14:56:23.790200: Arduino not connected
+2025-07-14 14:56:23.790587: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:23.799763: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_71_1752497784613"}
+
+2025-07-14 14:56:23.800232: Arduino not connected
+2025-07-14 14:56:23.800525: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:23.833244: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_72_1752497784647"}
+
+2025-07-14 14:56:23.833753: Arduino not connected
+2025-07-14 14:56:23.834124: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:24.777791: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_73_1752497785585"}
+
+2025-07-14 14:56:24.778373: Arduino not connected
+2025-07-14 14:56:24.778682: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:24.834402: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_74_1752497785645"}
+
+2025-07-14 14:56:24.834954: Arduino not connected
+2025-07-14 14:56:24.835295: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:24.848461: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_75_1752497785657"}
+
+2025-07-14 14:56:24.849002: Arduino not connected
+2025-07-14 14:56:24.849310: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:24.861947: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_76_1752497785675"}
+
+2025-07-14 14:56:24.862431: Arduino not connected
+2025-07-14 14:56:24.862772: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:24.875110: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_77_1752497785687"}
+
+2025-07-14 14:56:24.875619: Arduino not connected
+2025-07-14 14:56:24.875922: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:24.883004: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_78_1752497785697"}
+
+2025-07-14 14:56:24.883514: Arduino not connected
+2025-07-14 14:56:24.883835: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:24.891026: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_79_1752497785705"}
+
+2025-07-14 14:56:24.891532: Arduino not connected
+2025-07-14 14:56:24.891840: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:25.315307: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_80_1752497786116"}
+
+2025-07-14 14:56:25.315855: Arduino not connected
+2025-07-14 14:56:25.316166: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:25.342137: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_81_1752497786156"}
+
+2025-07-14 14:56:25.342698: Arduino not connected
+2025-07-14 14:56:25.343029: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:25.356612: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_82_1752497786163"}
+
+2025-07-14 14:56:25.357177: Arduino not connected
+2025-07-14 14:56:25.357490: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:25.365724: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_83_1752497786179"}
+
+2025-07-14 14:56:25.366277: Arduino not connected
+2025-07-14 14:56:25.366601: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:25.374992: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_84_1752497786186"}
+
+2025-07-14 14:56:25.375507: Arduino not connected
+2025-07-14 14:56:25.375834: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:25.392609: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_85_1752497786199"}
+
+2025-07-14 14:56:25.393126: Arduino not connected
+2025-07-14 14:56:25.393430: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:25.402426: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_86_1752497786216"}
+
+2025-07-14 14:56:25.402900: Arduino not connected
+2025-07-14 14:56:25.403208: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:27.919309: Request: {"type":"servo","name":"arm_right","value":100.0,"request_id":"req_87_1752497788623"}
+
+2025-07-14 14:56:27.919896: Arduino not connected
+2025-07-14 14:56:27.920209: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:28.780401: Request: {"type":"servo","name":"arm_left","value":90.0,"request_id":"req_88_1752497789583"}
+
+2025-07-14 14:56:28.780968: Arduino not connected
+2025-07-14 14:56:28.781263: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:30.069734: Request: {"type":"servo","name":"arm_left","value":100.0,"request_id":"req_89_1752497790871"}
+
+2025-07-14 14:56:30.070312: Arduino not connected
+2025-07-14 14:56:30.070645: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:30.919047: Request: {"type":"servo","name":"neck_bottom","value":95.0,"request_id":"req_90_1752497791727"}
+
+2025-07-14 14:56:30.919616: Arduino not connected
+2025-07-14 14:56:30.919960: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:32.349400: Request: {"type":"servo","name":"neck_bottom","value":98.0,"request_id":"req_91_1752497793156"}
+
+2025-07-14 14:56:32.350028: Arduino not connected
+2025-07-14 14:56:32.350415: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:33.880168: Request: {"type":"servo","name":"neck_bottom","value":100.0,"request_id":"req_92_1752497794676"}
+
+2025-07-14 14:56:33.880712: Arduino not connected
+2025-07-14 14:56:33.881035: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:35.173532: Request: {"type":"servo","name":"neck_top","value":96.0,"request_id":"req_93_1752497795978"}
+
+2025-07-14 14:56:35.174144: Arduino not connected
+2025-07-14 14:56:35.174490: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:35.406450: Request: {"type":"servo","name":"neck_top","value":100.0,"request_id":"req_94_1752497796214"}
+
+2025-07-14 14:56:35.407011: Arduino not connected
+2025-07-14 14:56:35.407365: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:37.336623: Request: {"type":"servo","name":"head_rotation","value":100.0,"request_id":"req_95_1752497798141"}
+
+2025-07-14 14:56:37.337197: Arduino not connected
+2025-07-14 14:56:37.337515: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:37.835789: Request: {"type":"servo","name":"head_rotation","value":100.0,"request_id":"req_96_1752497798640"}
+
+2025-07-14 14:56:37.836342: Arduino not connected
+2025-07-14 14:56:37.836717: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:41.223867: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_97_1752497801987"}
+
+2025-07-14 14:56:41.224458: Arduino not connected
+2025-07-14 14:56:41.224775: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:41.251136: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_98_1752497802065"}
+
+2025-07-14 14:56:41.251667: Arduino not connected
+2025-07-14 14:56:41.251973: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:41.259927: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_99_1752497802075"}
+
+2025-07-14 14:56:41.260396: Arduino not connected
+2025-07-14 14:56:41.260726: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:41.273196: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_100_1752497802087"}
+
+2025-07-14 14:56:41.273704: Arduino not connected
+2025-07-14 14:56:41.274135: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:41.288589: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_101_1752497802103"}
+
+2025-07-14 14:56:41.289099: Arduino not connected
+2025-07-14 14:56:41.289401: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:41.298173: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_102_1752497802111"}
+
+2025-07-14 14:56:41.298648: Arduino not connected
+2025-07-14 14:56:41.298968: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:41.304806: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_103_1752497802120"}
+
+2025-07-14 14:56:41.305302: Arduino not connected
+2025-07-14 14:56:41.305649: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:42.071725: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_104_1752497802876"}
+
+2025-07-14 14:56:42.072286: Arduino not connected
+2025-07-14 14:56:42.072602: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:42.129386: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_105_1752497802941"}
+
+2025-07-14 14:56:42.129994: Arduino not connected
+2025-07-14 14:56:42.130370: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:42.149367: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_106_1752497802962"}
+
+2025-07-14 14:56:42.149951: Arduino not connected
+2025-07-14 14:56:42.150340: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:42.168489: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_107_1752497802983"}
+
+2025-07-14 14:56:42.169007: Arduino not connected
+2025-07-14 14:56:42.169344: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:42.194469: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_108_1752497803002"}
+
+2025-07-14 14:56:42.194985: Arduino not connected
+2025-07-14 14:56:42.195289: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:42.219149: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_109_1752497803029"}
+
+2025-07-14 14:56:42.219680: Arduino not connected
+2025-07-14 14:56:42.219995: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:42.227508: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_110_1752497803041"}
+
+2025-07-14 14:56:42.228013: Arduino not connected
+2025-07-14 14:56:42.228308: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:44.306956: Request: {"type":"servo","name":"neck_top","value":59.0,"request_id":"req_111_1752497805108"}
+
+2025-07-14 14:56:44.307528: Arduino not connected
+2025-07-14 14:56:44.307820: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:46.220887: Request: {"type":"servo","name":"neck_top","value":80.0,"request_id":"req_112_1752497807024"}
+
+2025-07-14 14:56:46.221426: Arduino not connected
+2025-07-14 14:56:46.221742: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:47.578459: Request: {"type":"servo","name":"neck_top","value":24.0,"request_id":"req_113_1752497808383"}
+
+2025-07-14 14:56:47.579053: Arduino not connected
+2025-07-14 14:56:47.579359: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:49.621362: Request: {"type":"servo","name":"head_rotation","value":90.0,"request_id":"req_114_1752497810427"}
+
+2025-07-14 14:56:49.622023: Arduino not connected
+2025-07-14 14:56:49.622367: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:51.179521: Request: {"type":"servo","name":"neck_top","value":92.0,"request_id":"req_115_1752497811985"}
+
+2025-07-14 14:56:51.180060: Arduino not connected
+2025-07-14 14:56:51.180394: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:52.123851: Request: {"type":"servo","name":"neck_top","value":92.0,"request_id":"req_116_1752497812930"}
+
+2025-07-14 14:56:52.125128: Arduino not connected
+2025-07-14 14:56:52.125990: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:53.101079: Request: {"type":"servo","name":"neck_bottom","value":80.0,"request_id":"req_117_1752497813906"}
+
+2025-07-14 14:56:53.101677: Arduino not connected
+2025-07-14 14:56:53.106176: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:57.189042: Request: {"type":"servo","name":"neck_bottom","value":22.0,"request_id":"req_118_1752497817972"}
+
+2025-07-14 14:56:57.189611: Arduino not connected
+2025-07-14 14:56:57.189970: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:58.888114: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_119_1752497819689"}
+
+2025-07-14 14:56:58.890398: Arduino not connected
+2025-07-14 14:56:58.890790: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:58.936147: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_120_1752497819752"}
+
+2025-07-14 14:56:58.936671: Arduino not connected
+2025-07-14 14:56:58.936966: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:58.947962: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_121_1752497819760"}
+
+2025-07-14 14:56:58.948502: Arduino not connected
+2025-07-14 14:56:58.948804: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:58.955833: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_122_1752497819771"}
+
+2025-07-14 14:56:58.956702: Arduino not connected
+2025-07-14 14:56:58.957397: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:58.966304: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_123_1752497819782"}
+
+2025-07-14 14:56:58.966794: Arduino not connected
+2025-07-14 14:56:58.967089: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:58.983542: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_124_1752497819797"}
+
+2025-07-14 14:56:58.984473: Arduino not connected
+2025-07-14 14:56:58.985139: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:56:58.990743: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_125_1752497819807"}
+
+2025-07-14 14:56:58.991174: Arduino not connected
+2025-07-14 14:56:58.991456: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:01.080556: Request: {"type":"servo","name":"neck_bottom","value":90.0,"request_id":"req_126_1752497821888"}
+
+2025-07-14 14:57:01.081111: Arduino not connected
+2025-07-14 14:57:01.081393: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:03.224591: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_127_1752497823987"}
+
+2025-07-14 14:57:03.226406: Arduino not connected
+2025-07-14 14:57:03.226759: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:03.237747: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_128_1752497824053"}
+
+2025-07-14 14:57:03.238782: Arduino not connected
+2025-07-14 14:57:03.239460: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:03.255096: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_129_1752497824071"}
+
+2025-07-14 14:57:03.255549: Arduino not connected
+2025-07-14 14:57:03.255828: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:03.269082: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_130_1752497824085"}
+
+2025-07-14 14:57:03.270068: Arduino not connected
+2025-07-14 14:57:03.270785: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:03.290682: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_131_1752497824102"}
+
+2025-07-14 14:57:03.291681: Arduino not connected
+2025-07-14 14:57:03.292393: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:03.303590: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_132_1752497824120"}
+
+2025-07-14 14:57:03.304076: Arduino not connected
+2025-07-14 14:57:03.304349: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:03.309617: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_133_1752497824126"}
+
+2025-07-14 14:57:03.310610: Arduino not connected
+2025-07-14 14:57:03.310935: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:06.701540: Request: {"type":"servo","name":"arm_right","value":74.0,"request_id":"req_134_1752497827439"}
+
+2025-07-14 14:57:06.702190: Arduino not connected
+2025-07-14 14:57:06.702530: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:07.395057: Request: {"type":"servo","name":"arm_right","value":95.0,"request_id":"req_135_1752497828198"}
+
+2025-07-14 14:57:07.395668: Arduino not connected
+2025-07-14 14:57:07.396052: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:07.804091: Request: {"type":"servo","name":"arm_right","value":97.0,"request_id":"req_136_1752497828607"}
+
+2025-07-14 14:57:07.804643: Arduino not connected
+2025-07-14 14:57:07.804940: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:08.310197: Request: {"type":"servo","name":"arm_right","value":100.0,"request_id":"req_137_1752497829117"}
+
+2025-07-14 14:57:08.310715: Arduino not connected
+2025-07-14 14:57:08.311038: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:12.123947: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_138_1752497832885"}
+
+2025-07-14 14:57:12.124552: Arduino not connected
+2025-07-14 14:57:12.124931: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:12.780837: Request: {"type":"servo","name":"eye_right","value":84.0,"request_id":"req_139_1752497833594"}
+
+2025-07-14 14:57:12.782058: Arduino not connected
+2025-07-14 14:57:12.782852: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:13.856683: Request: {"type":"servo","name":"eye_right","value":99.0,"request_id":"req_140_1752497834663"}
+
+2025-07-14 14:57:13.857234: Arduino not connected
+2025-07-14 14:57:13.857509: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:14.650148: Request: {"type":"servo","name":"eye_left","value":87.0,"request_id":"req_141_1752497835457"}
+
+2025-07-14 14:57:14.651281: Arduino not connected
+2025-07-14 14:57:14.651977: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:15.267603: Request: {"type":"servo","name":"eye_left","value":100.0,"request_id":"req_142_1752497836074"}
+
+2025-07-14 14:57:15.268140: Arduino not connected
+2025-07-14 14:57:15.268428: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:16.583270: Request: {"type":"servo","name":"head_rotation","value":50.0,"request_id":"req_143_1752497837390"}
+
+2025-07-14 14:57:16.583830: Arduino not connected
+2025-07-14 14:57:16.584100: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:16.638211: Request: {"type":"servo","name":"neck_top","value":50.0,"request_id":"req_144_1752497837452"}
+
+2025-07-14 14:57:16.638696: Arduino not connected
+2025-07-14 14:57:16.638983: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:16.650545: Request: {"type":"servo","name":"neck_bottom","value":50.0,"request_id":"req_145_1752497837462"}
+
+2025-07-14 14:57:16.651536: Arduino not connected
+2025-07-14 14:57:16.652256: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:16.664474: Request: {"type":"servo","name":"arm_left","value":50.0,"request_id":"req_146_1752497837481"}
+
+2025-07-14 14:57:16.665453: Arduino not connected
+2025-07-14 14:57:16.666229: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:16.675479: Request: {"type":"servo","name":"arm_right","value":50.0,"request_id":"req_147_1752497837492"}
+
+2025-07-14 14:57:16.675939: Arduino not connected
+2025-07-14 14:57:16.676228: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:16.681977: Request: {"type":"servo","name":"eye_left","value":50.0,"request_id":"req_148_1752497837499"}
+
+2025-07-14 14:57:16.682812: Arduino not connected
+2025-07-14 14:57:16.683414: Response: Action handled successfully: Closure: () => String from Function 'toString':.
+2025-07-14 14:57:16.694515: Request: {"type":"servo","name":"eye_right","value":50.0,"request_id":"req_149_1752497837511"}
+
+2025-07-14 14:57:16.694950: Arduino not connected
+2025-07-14 14:57:16.695180: Response: Action handled successfully: Closure: () => String from Function 'toString':.
