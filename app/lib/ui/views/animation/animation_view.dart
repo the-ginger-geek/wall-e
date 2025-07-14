@@ -3,9 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'animation_viewmodel.dart';
 
 class AnimationView extends StackedView<AnimationViewModel> {
-  final bool isConnected;
-  
-  const AnimationView({required this.isConnected, super.key});
+  const AnimationView({super.key});
 
   @override
   Widget builder(
@@ -28,7 +26,7 @@ class AnimationView extends StackedView<AnimationViewModel> {
                 ),
                 if (viewModel.state.currentAnimation != null)
                   ElevatedButton.icon(
-                    onPressed: isConnected && !viewModel.state.isLoading ? viewModel.stopAnimation : null,
+                    onPressed: viewModel.state.isConnected && viewModel.state.isPlaying ? viewModel.stopAnimation : null,
                     icon: const Icon(Icons.stop),
                     label: const Text('Stop'),
                     style: ElevatedButton.styleFrom(
@@ -53,16 +51,16 @@ class AnimationView extends StackedView<AnimationViewModel> {
               itemCount: viewModel.state.animations.length,
               itemBuilder: (context, index) {
                 final animation = viewModel.state.animations[index];
-                final isPlaying = viewModel.state.currentAnimation == animation.id;
+                final isPlaying = viewModel.isAnimationPlaying(animation.id);
                 
                 return ElevatedButton(
-                  onPressed: isConnected && !viewModel.state.isLoading 
+                  onPressed: viewModel.state.isConnected && !viewModel.state.isLoading
                       ? () => viewModel.playAnimation(animation.id)
                       : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isPlaying 
                         ? Colors.green 
-                        : (isConnected ? Colors.blue : Colors.grey),
+                        : (viewModel.state.isConnected ? Colors.blue : Colors.grey),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   ),
@@ -99,16 +97,35 @@ class AnimationView extends StackedView<AnimationViewModel> {
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
                 ),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.play_circle, color: Colors.blue, size: 20),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        'Playing: ${_getAnimationName(viewModel, viewModel.state.currentAnimation!)}',
-                        style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                      ),
+                    Row(
+                      children: [
+                        Icon(
+                          viewModel.state.isPlaying ? Icons.play_circle : Icons.pause_circle,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            '${viewModel.state.isPlaying ? "Playing" : "Paused"}: ${viewModel.getAnimationName(viewModel.state.currentAnimation!)}',
+                            style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
+                    if (viewModel.state.currentKeyframe != null) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        'Step: ${viewModel.state.currentKeyframe}',
+                        style: TextStyle(
+                          color: Colors.blue.withValues(alpha: 0.8),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -186,7 +203,7 @@ class AnimationView extends StackedView<AnimationViewModel> {
             ],
             
             // Connection status
-            if (!isConnected) ...[
+            if (!viewModel.state.isConnected) ...[
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
@@ -241,8 +258,4 @@ class AnimationView extends StackedView<AnimationViewModel> {
     }
   }
 
-  String _getAnimationName(AnimationViewModel viewModel, int animationId) {
-    final animation = viewModel.getAnimation(animationId);
-    return animation?.name ?? 'Unknown';
-  }
 }
